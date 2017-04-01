@@ -196,6 +196,16 @@ definitions:
             type: string
           filename:
             type: string
+      social:
+        type:
+          object
+        properties:
+          facebook:
+            type: string
+          twitter:
+            type: string
+          website:
+            type: string
   
   'Brand':
     type: object
@@ -236,6 +246,8 @@ definitions:
           facebook:
             type: string
           twitter:
+            type: string
+          website:
             type: string
     
   # Person <=> Team member
