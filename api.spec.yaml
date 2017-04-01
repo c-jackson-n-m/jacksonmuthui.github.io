@@ -1,0 +1,253 @@
+
+swagger: '2.0'
+info:
+  title: Pertech website api
+  version: 0.0.1
+paths:
+  '/brands':
+    'get':
+      tags: ['brands']
+      summary: Get all the brands in the system
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: A list on brand objects
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Brand"
+        500:
+          description: Problem fetching brands
+          schema:
+            $ref: "#/definitions/Error"
+    'post':
+      tags: ['brands']
+      summary: Create a new brand
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: name
+          in: formData
+          required: true
+          type: string
+        - name: summary
+          in: formData
+          required: true
+          type: string
+        - name: services # services offered
+          in: formData
+          required: true
+          type: string
+        - name: logo
+          in: formData
+          required: true
+          type: file
+      responses:
+        200:
+          description: Brand created successfully
+          schema:
+            $ref: "#/definitions/Brand"
+        500:
+          description: Problem creating new brand
+          schema:
+            $ref: "#/definitions/Error"
+          
+  
+  '/team':
+    'get':
+      tags: ['team']
+      summary: Get all the team members
+      produces:
+        - 'applications/json'
+      responses:
+        200:
+          description: A list of Person objects
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Person"
+        500:
+          description: Problem fetching team members
+          schema:
+            $ref: "#/definitions/Error"
+    'post':
+      tags: ['team']
+      summary: Add a new team member
+      produces:
+        - 'application/json'
+      consumes:
+        - 'multipart/form-data'
+      parameters:
+        - name: name
+          in: formData
+          required: true
+          type: string
+        - name: description
+          in: formData
+          required: true
+          type: string
+        - name: logo
+          in: formData
+          required: true
+          type: file
+        - name: facebook
+          in: formData
+          required: false
+          type: string
+        - name: twitter
+          in: formData
+          required: false
+          type: string
+      responses:
+        200:
+          description: Successfully added a new team member
+          schema:
+            $ref: "#/definitions/Person"
+        500:
+          description: Problem adding the new team member
+          schema:
+            $ref: "#/definitions/Error"
+      
+        
+              
+  '/services':
+    'get':
+      tags: ['services']
+      summary: Get all the services in the system
+      produces:
+        - 'application/json'
+      responses:
+        200:
+          description: All services returned successfully
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Service"
+        500:
+          description: Problem fetching services
+          schema:
+            $ref: "#/definitions/Error"
+    'post':
+      tags: ['services']
+      summary: Create a new service
+      consumes:
+        - 'multipart/form-data'
+      produces:
+        - 'application/json'
+      parameters:
+        - name: logo
+          in: formData
+          type: file
+          required: true
+        - name: banner
+          in: formData
+          type: file
+          required: true
+        - name: name
+          in: formData
+          type: string
+          required: true
+        - name: summary
+          in: formData
+          type: string
+          required: true
+        - name: description
+          in: formData
+          type: string
+          required: true
+      responses:
+        200:
+          description: Service created successfully
+          schema:
+            $ref: '#/definitions/Service'
+        500:
+          description: Problem creating service
+          schema:
+            $ref: "#/definitions/Error"
+
+
+
+definitions:
+  'Service':
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      summary:
+        type: string
+      description:
+        type: string
+      logo:
+        type: object
+        properties:
+          mimetype:
+            type: string
+          filename:
+            type: string
+  
+  'Brand':
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      summary:
+        type: string
+      
+      # the `_id`s of services offered
+      services:
+        type: array
+        items:
+          type: string
+      logo:
+        type: object
+        properties:
+          mimetype:
+            type: string
+          filename:
+            type: string
+      social:
+        type: object
+        properties:
+          facebook:
+            type: string
+          twitter:
+            type: string
+    
+  # Person <=> Team member
+  'Person':
+    type: object
+    properties:
+      _id:
+        type: string
+      name:
+        type: string
+      description:
+        type: string
+      logo:
+        type: object
+        properties:
+          mimetype:
+            type: string
+          filename:
+            type: string
+      social:
+        type: object
+        properties:
+          facebook:
+            type: string
+          twitter:
+            type: string
+  'Error':
+    type: object
+    properties:
+      code:
+        type: number
+      message:
+        type: string
