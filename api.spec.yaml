@@ -197,7 +197,11 @@ definitions:
         type: string
       name:
         type: string
+      urlString:
+        type: string
       summary:
+        type: string
+      creationStory:
         type: string
       
       # the `_id`s of services offered
@@ -206,6 +210,13 @@ definitions:
         items:
           type: string
       logo:
+        type: object
+        properties:
+          mimetype:
+            type: string
+          filename:
+            type: string
+      banner:
         type: object
         properties:
           mimetype:
@@ -237,13 +248,30 @@ definitions:
             type: string
           filename:
             type: string
-      social:
-        type: object
-        properties:
-          facebook:
-            type: string
-          twitter:
-            type: string
+      specialties:
+        type: array
+        items:
+          type: string
+            
+  'Contact':
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      emailAddress:
+        type: string
+      country:
+        type: string
+      topic:
+        type: string
+      message:
+        type: string
+      replyEmail:
+        type: boolean
+      replyPhone:
+        type: boolean
   'Error':
     type: object
     properties:
