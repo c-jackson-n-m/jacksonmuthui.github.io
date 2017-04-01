@@ -189,6 +189,13 @@ definitions:
             type: string
           filename:
             type: string
+      banner:
+        type: object
+        properties:
+          mimetype:
+            type: string
+          filename:
+            type: string
   
   'Brand':
     type: object
